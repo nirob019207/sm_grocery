@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useCategoryQuery } from "../../../store/api/category/categoryApiSlice";
 import { useAddProductsMutation } from "../../../store/api/products/productsApiSlice";
+import { useCategoryQuery } from "../../../store/api/category/categoryApiSlice";
 
 export const ProductsCreate = () => {
   const { data: categories, error, isLoading } = useCategoryQuery();
@@ -12,7 +12,7 @@ export const ProductsCreate = () => {
     price: "",
     stock: "",
     categoryId: "",
-    images: "", // changed from "images" to "image"
+    images: [],
   });
 
   const handleChange = (e) => {
@@ -21,16 +21,25 @@ export const ProductsCreate = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] }); // Only take the first file
+    setFormData({ ...formData, images: Array.from(e.target.files) });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    // Prepare form data for API submission
+    const productData = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === "images") {
+        formData.images.forEach((file) => productData.append("images", file));
+      } else {
+        productData.append(key, formData[key]);
+      }
+    });
+
     try {
-      const response = await addProduct(formData).unwrap(); // Corrected from 'fromData' to 'formData'
+      const response = await addProduct(productData).unwrap();
       console.log("Product added successfully:", response);
-  
       // Reset form
       setFormData({
         productName: "",
@@ -38,13 +47,12 @@ export const ProductsCreate = () => {
         price: "",
         stock: "",
         categoryId: "",
-        images: "", // reset image field
+        images: [],
       });
     } catch (err) {
       console.error("Failed to add product:", err);
     }
   };
-  
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -120,7 +128,7 @@ export const ProductsCreate = () => {
             Category
           </label>
           {isLoading && <div>Loading categories...</div>}
-          {error && <div className="text-red-500">Error loading categories.</div>}
+          {error && <div className="text-red-500">Error: {error.message}</div>}
           {categories && (
             <select
               id="categoryId"
@@ -139,16 +147,17 @@ export const ProductsCreate = () => {
           )}
         </div>
 
-        {/* Image */}
+        {/* Images */}
         <div>
-          <label htmlFor="image" className="block font-medium mb-2">
-            Product Image
+          <label htmlFor="images" className="block font-medium mb-2">
+            Product Images
           </label>
           <input
             type="file"
-            id="image"
+            id="images"
             name="images"
             onChange={handleFileChange}
+            multiple
             className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -164,7 +173,7 @@ export const ProductsCreate = () => {
       </form>
 
       {/* Error Message */}
-      {addError && <div className="text-red-500 mt-4">Error: {addError.data?.message || "Something went wrong."}</div>}
+      {addError && <div className="text-red-500 mt-4">Error: {addError.message}</div>}
     </div>
   );
 };

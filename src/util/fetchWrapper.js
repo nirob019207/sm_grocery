@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const fetchWrapper = axios.create({
-	baseURL: 'http://localhost:3000/api/v1/',
+	baseURL: 'https://api-fresh-harvest.code-commando.com/api/v1/',
   
 	// timeout: 5000,
 	headers: {
@@ -12,10 +12,10 @@ const fetchWrapper = axios.create({
 
 fetchWrapper.interceptors.request.use(
 	config => {
-		const accessToken = JSON.parse(localStorage.getItem('auth'));
-		if (accessToken?.accessToken) {
+		const token = JSON.parse(localStorage.getItem('auth'));
+		if (token?.token) {
       console.log(accessToken);
-			config.headers.Authorization = `Bearer ${accessToken?.accessToken}`;
+			config.headers.Authorization = `Bearer ${token?.token}`;
 		}
 		return config;
 	},

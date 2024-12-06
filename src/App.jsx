@@ -15,8 +15,6 @@ import { UserDash } from "./pages/userDashboard/UserDash";
 function App() {
   const auth = useSelector((state) => state.auth);
 
-  // Debugging: Log the auth state to verify role data
-  console.log(auth); 
 
   return (
     <BrowserRouter>
