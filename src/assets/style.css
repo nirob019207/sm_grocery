@@ -1,0 +1,14 @@
+/* Style for Swiper pagination dots */
+.swiper-pagination-bullet {
+    background-color: #d3d3d3; /* Default gray color for inactive dots */
+    width: 12px;
+    height: 12px;
+    margin: 0 8px; /* Add margin between dots */
+    opacity: 1; /* Make dots fully opaque */
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #28a745; /* Green color for active dot */
+    transform: scale(1.2); /* Slightly enlarge the active dot */
+  }
+  
