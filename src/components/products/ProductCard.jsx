@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
       <img
         src={product.images?.[0] || 'placeholder-image-url'}
         alt={product.productName}
-        className="w-full h-[208px] object-cover rounded-md mb-4"
+        className="w-full h-[208px] object-cover bg-slate-100  rounded-lg mb-4"
       />
       <Link to={`/products/${product.id}`}>
         <h4 className="font-semibold text-lg mb-2 hover:text-orange-500 transition">

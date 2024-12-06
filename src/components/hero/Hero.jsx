@@ -9,7 +9,7 @@ const Hero = () => {
         <div className="flex flex-col gap-6 md:w-1/2">
       
           <div className="relative">
-          <h3 className="text-green-title bg-green-50 py-1 my-2 px-2 rounded-lg inline-block text-lg font-primary text-[20px]">
+          <h3 className="text-green-title bg-green-50 shadow-lg rounded-3xl py-2 my-2 px-2  inline-block text-lg font-primary text-[20px]">
             Welcome to Fresh Haravest
           </h3>
       
@@ -19,9 +19,11 @@ const Hero = () => {
             <p className="mt-16">
             At Fresh Harvests, we are passionate about providing you with the freshest and most flavorful fruits and vegetables
             </p>
-            <div className="mt-8">
-                <button className="bg-orange-500 text-white px-8 rounded-2xl py-2">Shop Now</button>
-            </div>
+          <div className="mt-8">
+          <a href="#shop" >
+                <button className="bg-orange-500 text-white px-8 rounded-2xl py-2" id="">Shop Now</button>
+            </a>
+          </div>
           </div>
 
 
