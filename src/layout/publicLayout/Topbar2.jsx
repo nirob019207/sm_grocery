@@ -18,7 +18,7 @@ export const Topbar2 = () => {
   const switchToLogin = () => setIsLoginModal(true); // Switch to Login modal
 
   return (
-    <div className='bg-center '>
+    <div className='bg-center'>
       <div className='container'>
         <nav className="flex justify-between items-center py-5">
           {/* Logo */}
